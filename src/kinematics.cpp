@@ -22,6 +22,9 @@
 
 #include <cmath>
 #include <memory>
+#include <algorithm>  // std::max
+#include <ostream>
+#include <iostream>
 
 #include "omnidirectional_controllers/kinematics.hpp"
 
@@ -63,6 +66,24 @@ std::vector<double> Kinematics::getWheelsAngularVelocities(RobotVelocity vel) {
   angular_vel_vec_[0] = (-vy + wl) / robot_params_.wheel_radius;
   angular_vel_vec_[1] = ((vx * cos_gamma_) + (vy * sin_gamma_) + wl) / robot_params_.wheel_radius;
   angular_vel_vec_[2] = ((-vx * cos_gamma_) + (vy * sin_gamma_) + wl) / robot_params_.wheel_radius;
+
+    // Limitação da magnitude máxima das velocidades angulares
+    double max_angular_velocity = 1.4;  // [rad/s], você define
+    double max_val = std::max({std::abs(angular_vel_vec_[0]),
+                               std::abs(angular_vel_vec_[1]),
+                               std::abs(angular_vel_vec_[2])});
+  
+    if (max_val > max_angular_velocity) {
+      double scale = max_angular_velocity / max_val;
+      for (double &w : angular_vel_vec_) {
+        w *= scale;
+      }
+    }
+
+    std::cout << "Wheel speeds [rad/s]: w1=" << angular_vel_vec_[0]
+          << ", w2=" << angular_vel_vec_[1]
+          << ", w3=" << angular_vel_vec_[2] << std::endl;
+
 
   return angular_vel_vec_;
 }
