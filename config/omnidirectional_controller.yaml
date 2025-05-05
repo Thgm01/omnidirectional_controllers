@@ -16,8 +16,8 @@ omnidirectional_controller:
       - wheel1_speed
       - wheel3_speed
 
-    robot_radius: 0.275
-    wheel_radius: 0.140
+    robot_radius: 0.25
+    wheel_radius: 0.060
     gamma: 30.0 # angle between body fixed y axis and the normal of wheel3
 
     publish_rate: 50.0
