@@ -55,6 +55,7 @@ RobotVelocity Kinematics::getBodyVelocity(const std::vector<double> & wheels_vel
   vel.vy *= robot_params_.wheel_radius;
   vel.omega *= robot_params_.wheel_radius;
 
+
   return vel;
 }
 
@@ -68,7 +69,7 @@ std::vector<double> Kinematics::getWheelsAngularVelocities(RobotVelocity vel) {
   angular_vel_vec_[2] = ((-vx * cos_gamma_) + (vy * sin_gamma_) + wl) / robot_params_.wheel_radius;
 
     // Limitação da magnitude máxima das velocidades angulares
-    double max_angular_velocity = 2.66;  // [rad/s]
+    double max_angular_velocity = 2.853;  // [rad/s]
     double max_val = std::max({std::abs(angular_vel_vec_[0]),
                                std::abs(angular_vel_vec_[1]),
                                std::abs(angular_vel_vec_[2])});
@@ -79,6 +80,12 @@ std::vector<double> Kinematics::getWheelsAngularVelocities(RobotVelocity vel) {
         w *= scale;
       }
     }
+
+
+
+    std::cout << "Global speeds: Vx=" << vel.vx
+          << ", Vy=" << vel.vy
+          << ", Theta=" << vel.omega << std::endl;
 
     std::cout << "Wheel speeds [rad/s]: w1=" << angular_vel_vec_[0]
           << ", w2=" << angular_vel_vec_[1]
