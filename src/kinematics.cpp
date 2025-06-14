@@ -69,7 +69,7 @@ std::vector<double> Kinematics::getWheelsAngularVelocities(RobotVelocity vel) {
   angular_vel_vec_[2] = ((-vx * cos_gamma_) + (vy * sin_gamma_) + wl) / robot_params_.wheel_radius;
 
     // Limitação da magnitude máxima das velocidades angulares
-    double max_angular_velocity = 2.853;  // [rad/s]
+    double max_angular_velocity = 3.98;  // [rad/s]
     double max_val = std::max({std::abs(angular_vel_vec_[0]),
                                std::abs(angular_vel_vec_[1]),
                                std::abs(angular_vel_vec_[2])});
